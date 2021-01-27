@@ -13,7 +13,7 @@ import boto3
 
 from todos import decimalencoder
 
-def lambda_handler(event, context): #event, context
+def translate(event, context): #event, context
     # TODO implement
     """client = boto3.client('translate', region_name="us-east-1")
     text = "hola, mi nombre es Eduardo Gabriel"
@@ -23,7 +23,7 @@ def lambda_handler(event, context): #event, context
         TargetLanguageCode=lenguajeAtraducir)
     print(result['TranslatedText'])
     """
-    capturaRoute = event['language']
+    capturaRoute = event['pathParameters']['language']
     
     # create a response
     response = {
