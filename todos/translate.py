@@ -7,28 +7,37 @@ result = client.translate_text(Text=text, SourceLanguageCode="auto",
     TargetLanguageCode="en")
 print(result['TranslatedText'])
 """
-
+import os
 import json
 import boto3
 
 from todos import decimalencoder
 
+dynamodb = boto3.resource('dynamodb')
+
 def translate(event, context): #event, context
     # TODO implement
-    """client = boto3.client('translate', region_name="us-east-1")
-    text = "hola, mi nombre es Eduardo Gabriel"
-    lenguajeAtraducir = "fr"
+    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+
+    # fetch todo from the database
+    toTraduce = table.get_item(
+        Key={
+            'id': event['pathParameters']['id']
+        }
+    )
     
-    result = client.translate_text(Text=text, SourceLanguageCode="auto", 
+    client = boto3.client('translate', region_name="us-east-1")
+    #text = "hola, mi nombre es Eduardo Gabriel"
+    lenguajeAtraducir = event['pathParameters']['language']
+    
+    result = client.translate_text(Text=toTraduce, SourceLanguageCode="auto", 
         TargetLanguageCode=lenguajeAtraducir)
     print(result['TranslatedText'])
-    """
-    capturaRoute = event['pathParameters']['language']
     
     # create a response
     response = {
         "statusCode": 200,
-        "body": json.dumps(capturaRoute,
+        "body": json.dumps(result,
                            cls=decimalencoder.DecimalEncoder)
     }
 
