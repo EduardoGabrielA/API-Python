@@ -23,7 +23,7 @@ def lambda_handler(event, context): #event, context
         TargetLanguageCode=lenguajeAtraducir)
     print(result['TranslatedText'])
     """
-    capturaRoute = event['queryStringParameters']['language']
+    capturaRoute = event['language']
     
     # create a response
     response = {
