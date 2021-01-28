@@ -15,6 +15,8 @@ from todos import decimalencoder
 
 dynamodb = boto3.resource('dynamodb')
 
+client = boto3.client('translate', region_name="us-east-1")
+
 def translate(event, context): #event, context
     # TODO implement
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
@@ -27,8 +29,7 @@ def translate(event, context): #event, context
     )
     lenguajeAtraducir = event['pathParameters']['language']
     
-    
-    client = boto3.client('translate', region_name="us-east-1")
+    #client
     text = "hola, mi nombre es Eduardo Gabriel"
     
     
