@@ -25,15 +25,17 @@ def translate(event, context): #event, context
             'id': event['pathParameters']['id']
         }
     )
+    lenguajeAtraducir = event['pathParameters']['language']
     
+    """
     client = boto3.client('translate', region_name="us-east-1")
     #text = "hola, mi nombre es Eduardo Gabriel"
-    lenguajeAtraducir = event['pathParameters']['language']
+    
     
     result = client.translate_text(Text=toTraduce, SourceLanguageCode="auto", 
         TargetLanguageCode=lenguajeAtraducir)
-    print(result['TranslatedText'])
-    
+    #print(result['TranslatedText'])
+    """
     # create a response
     response = {
         "statusCode": 200,
