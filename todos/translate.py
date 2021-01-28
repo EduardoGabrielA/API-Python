@@ -27,7 +27,7 @@ def translate(event, context):
     # create a response.... EN caso de querer solo el texto usar: result['TranslatedText']
     response = {
         "statusCode": 200,
-        "body": json.dumps(result) 
+        "body": json.dumps(result, 
                            cls=decimalencoder.DecimalEncoder)
     }
 
