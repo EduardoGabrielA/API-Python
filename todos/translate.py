@@ -32,11 +32,10 @@ def translate(event, context): #event, context
     #client
     text = "hola, mi nombre es Eduardo Gabriel"
     
-    """
-    result = client.translate_text(Text=toTraduce, SourceLanguageCode="auto", 
+    result = client.translate_text(Text=text, SourceLanguageCode="auto", 
         TargetLanguageCode=lenguajeAtraducir)
     #print(result['TranslatedText'])
-    """
+    
     # create a response
     response = {
         "statusCode": 200,
