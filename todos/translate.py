@@ -1,12 +1,3 @@
-"""
-import boto3
-
-client = boto3.client('translate', region_name="us-east-1")
-text = "hola, mi nombre es Eduardo Gabriel"
-result = client.translate_text(Text=text, SourceLanguageCode="auto", 
-    TargetLanguageCode="en")
-print(result['TranslatedText'])
-"""
 import os
 import json
 import boto3
@@ -17,7 +8,7 @@ dynamodb = boto3.resource('dynamodb')
 
 client = boto3.client('translate', region_name="us-east-1")
 
-def translate(event, context): #event, context
+def translate(event, context):
     # TODO implement
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
 
@@ -29,24 +20,15 @@ def translate(event, context): #event, context
     )
     lenguajeAtraducir = event['pathParameters']['language']
     
-    #client
-    text = "hola, mi nombre es Eduardo Gabriel"
-    
-    result = client.translate_text(Text=text, SourceLanguageCode="auto", 
+    #Traduciendo petición de DynamoDB
+    result = client.translate_text(Text=toTraduce['Item']['text'], SourceLanguageCode="auto", 
         TargetLanguageCode=lenguajeAtraducir)
-    #print(result['TranslatedText'])
     
     # create a response
     response = {
         "statusCode": 200,
-        "body": json.dumps(result)#, toTraduce['Item']['text']
+        "body": json.dumps(result['TranslatedText']['SourceLanguageCode']['TargetLanguageCode'])#, toTraduce['Item']['text']
                            #cls=decimalencoder.DecimalEncoder)
     }
 
     return response
-"""
-    return {
-        'statusCode': 200,
-        'body': json.dumps(result)
-    }
-"""
