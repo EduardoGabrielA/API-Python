@@ -19,7 +19,7 @@ def translate(event, context):
         }
     )
     lenguajeAtraducir = event['pathParameters']['language']
-    
+    text = "Quiero funcionar correctamente"
     #Traduciendo petición de DynamoDB
     result = client.translate_text(Text=toTraduce['Item']['text'], SourceLanguageCode="auto", 
         TargetLanguageCode=lenguajeAtraducir)
@@ -27,7 +27,7 @@ def translate(event, context):
     # create a response
     response = {
         "statusCode": 200,
-        "body": json.dumps(result['TranslatedText']['SourceLanguageCode']['TargetLanguageCode'])#, toTraduce['Item']['text']
+        "body": json.dumps(text)#, toTraduce['Item']['text']  result['TranslatedText']['SourceLanguageCode']['TargetLanguageCode']
                            #cls=decimalencoder.DecimalEncoder)
     }
 
